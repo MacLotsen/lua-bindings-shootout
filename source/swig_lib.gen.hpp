@@ -11,7 +11,7 @@
 
 #ifndef SWIGLUA
 #define SWIGLUA
-#endif
+
 
 #define SWIG_LUA_TARGET SWIG_LUA_FLAVOR_LUA
 #define SWIG_LUA_MODULE_GLOBAL
@@ -6831,3 +6831,4 @@ void SWIG_init_user(lua_State* L)
   SWIG_Lua_dostring(L,SWIG_LUACODE);
 }
 
+#endif

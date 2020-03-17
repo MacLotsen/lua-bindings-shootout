@@ -21,6 +21,7 @@
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include <lua.hpp>
+#include <sol/compatibility.hpp>
 
 #include "lbs_lua.hpp"
 #include "lbs_lib.hpp"

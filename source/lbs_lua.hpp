@@ -339,7 +339,7 @@ namespace lbs {
 		if (luaL_loadbufferx(L, code, sz, "", "t") != 0) {
 			return lua_error(L);
 		}
-		return lua_absindex(L, -1);
+		return lua_gettop(L);
 	}
 
 	inline void lua_bench_preload_do_or_die(lua_State* L, int code_index) {

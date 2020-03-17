@@ -28,6 +28,27 @@ project("lua bindings shootout"
 	LANGUAGES C CXX
 )
 
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CXX_FEATURES
+		cxx_auto_type
+		cxx_constexpr
+		cxx_decltype
+		cxx_decltype_auto
+		cxx_default_function_template_args
+		cxx_final
+		cxx_lambdas
+		cxx_noexcept
+		cxx_nullptr
+		cxx_override
+		cxx_range_for
+		cxx_return_type_deduction
+		cxx_right_angle_brackets
+		cxx_static_assert
+		cxx_strong_enums
+		cxx_variadic_macros
+		cxx_variadic_templates)
+
 add_compile_options($<$<AND:$<COMPILE_LANGUAGE:CXX>,$<CXX_COMPILER_ID:MSVC>>:/std:c++latest>)
 
 # # CMake Modules
@@ -53,26 +74,29 @@ endif(CMAKE_SIZEOF_VOID_P EQUAL 4 OR LB_SHOOTOUT_BUILD_32_BITS)
 
 # # Get Lua Build through find_package
 # Wrap it in shared specifiers...
-set(BUILD_SHARED_LIBS_SAVED ${BUILD_SHARED_LIBS})
-set(BUILD_SHARED_LIBS TRUE)
-find_package(LuaDev 5.3.4 REQUIRED)
-set(BUILD_SHARED_LIBS ${BUILD_SHARED_LIBS_SAVED})
-set(BUILD_SHARED_LIBS_SAVED "")
+#set(BUILD_SHARED_LIBS_SAVED ${BUILD_SHARED_LIBS})
+#set(BUILD_SHARED_LIBS FALSE)
+#set(BUILD_LUAJIT TRUE)
+#find_package(LuaDev 2.0.5 REQUIRED)
+#set(BUILD_SHARED_LIBS ${BUILD_SHARED_LIBS_SAVED})
+#set(BUILD_SHARED_LIBS_SAVED "")
+find_package(TLW REQUIRED)
+include_directories(${LUA_INCLUDE_DIR})
 
 find_package(Threads REQUIRED)
 
 # # Get all dependent packages
 find_package(KaguyaDev REQUIRED)
-find_package(SeleneDev REQUIRED)
+#find_package(SeleneDev REQUIRED)
 find_package(LuwraDev REQUIRED)
 find_package(LuaIntfDev REQUIRED)
-find_package(ToLuappDev REQUIRED)
-find_package(LuaApippDev REQUIRED)
+#find_package(ToLuappDev REQUIRED)
+#find_package(LuaApippDev REQUIRED)
 find_package(LuaBridgeDev REQUIRED)
 find_package(LuabindDev REQUIRED)
 find_package(OOLuaDev REQUIRED)
-find_package(LuaCppInterface REQUIRED)
-find_package(Luawrapper REQUIRED)
+#find_package(LuaCppInterface REQUIRED)
+#find_package(Luawrapper REQUIRED)
 
 # Subdirectory Google Benchmark, after setting all cache variables
 set(BENCHMARK_ENABLE_EXCEPTIONS ON CACHE INTERNAL "Enable the use of exceptions in the benchmark library." FORCE)
@@ -83,7 +107,7 @@ set(BENCHMARK_BUILD_32_BITS ${LB_SHOOTOUT_BUILD_32_BITS} CACHE INTERNAL "Build a
 set(BENCHMARK_ENABLE_INSTALL OFF CACHE INTERNAL "Enable installation of benchmark. (Projects embedding benchmark may want to turn this OFF.)" FORCE)
 set(BENCHMARK_DOWNLOAD_DEPENDENCIES OFF CACHE INTERNAL "Allow the downloading and in-tree building of unmet dependencies" FORCE)
 set(BENCHMARK_ENABLE_GTEST_TESTS OFF CACHE INTERNAL "Enable building the unit tests which depend on gtest" FORCE)
-# Google bnechmark must be built as a static library,
+# Google benchmark must be built as a static library,
 # it doesn't contain export definitions
 set(BUILD_SHARED_LIBS_SAVED ${BUILD_SHARED_LIBS})
 set(BUILD_SHARED_LIBS FALSE)
@@ -98,23 +122,24 @@ set(lua_bindings_shootout_sources
 	"source/lbs_lib.hpp"
 	"source/lbs_lua.hpp"
 
-	"source/luawrapper.cpp"
-	"source/luacppinterface.cpp"
+#	"source/luawrapper.cpp"
+#	"source/luacppinterface.cpp"
 
 	"source/swig.cpp"
-	"source/toluapp.cpp"
+#	"source/toluapp.cpp"
 	"source/luabind.cpp"
-	"source/lua-api-pp.cpp"
+#	"source/lua-api-pp.cpp"
 	"source/oolua.cpp"
 	"source/luabridge.cpp"
 	"source/lua-intf.cpp"
 	"source/luwra.cpp"
 	"source/plain_c.cpp"
-	"source/selene.cpp"
+#	"source/selene.cpp"
 	"source/kaguya.cpp"
-	"source/old_sol.cpp"
+#	"source/old_sol.cpp"
 	"source/sol2.cpp"
 	"source/sol3.cpp"
+	"source/tlw.cpp"
 
 	"source/lua_bindings_shootout.cpp"
 )
@@ -140,6 +165,7 @@ target_link_libraries(lua_bindings_shootout
 	${LUWRA_LIBRARIES}
 	${LUAINTF_LIBRARIES}
 	${OOLUA_LIBRARIES}
+	TLW
 	sol2::sol2
 	# benchmarking library and utilities
 	Threads::Threads
