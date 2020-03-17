@@ -2,3 +2,5 @@ build/
 .vs/
 .mypy_cache/
 benchmark_results/lua_bindings_shootout.test.json
+.idea
+cmake-build*
