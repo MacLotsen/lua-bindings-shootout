@@ -1,6 +1,6 @@
 [submodule "vendor/benchmark"]
 	path = vendor/benchmark
-	url = https://github.com/BaaMeow/benchmark
+	url = https://github.com/google/benchmark.git
 [submodule "vendor/sol3/sol3"]
 	path = vendor/sol3/sol3
 	url = https://github.com/ThePhD/sol2.git
